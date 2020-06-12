@@ -14,7 +14,7 @@ namespace Aionys.Dapper
         private const int DefaultRetryLimit = 5;
 
         private readonly TimeSpan _retryEvery = TimeSpan.FromSeconds(5);
-        private readonly ILogger<DapperRetry> _logger;
+        private readonly ILogger _logger;
         private readonly int _retryLimit;
 
         public DapperRetry(int retryLimit = DefaultRetryLimit)
@@ -22,7 +22,7 @@ namespace Aionys.Dapper
             _retryLimit = retryLimit;
         }
 
-        public DapperRetry(ILogger<DapperRetry> logger, int retryLimit = DefaultRetryLimit)
+        public DapperRetry(ILogger logger, int retryLimit = DefaultRetryLimit)
         {
             _logger = logger;
             _retryLimit = retryLimit;
@@ -79,12 +79,10 @@ namespace Aionys.Dapper
 
             await Retry.DoAsync(async (retryIteration, maxRetryCount) =>
             {
-                _logger?.LogInformation($"Dapper retry #: {retryIteration}");
-
                 result = await task;
             }, _retryEvery, retryLimit ?? _retryLimit, onFailure: ((exception, retryIteration, maxRetryCount) =>
             {
-                _logger?.LogError(exception, $"Dapper retry #: {retryIteration}");
+                _logger?.LogError(exception, $"Dapper retry #: {retryIteration + 1}");
             }));
 
             return result;
