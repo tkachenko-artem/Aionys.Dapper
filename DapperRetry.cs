@@ -115,7 +115,7 @@ namespace Aionys.Dapper
         }
         #endregion
 
-        private async Task<T> RetryActionAsync<T>(Task<T> task, int? retryLimit = null)
+        public async Task<T> RetryActionAsync<T>(Task<T> task, int? retryLimit = null)
         {
             T result = default;
 
