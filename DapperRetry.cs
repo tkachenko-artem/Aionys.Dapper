@@ -82,7 +82,7 @@ namespace Aionys.Dapper
                 result = await task;
             }, _retryEvery, retryLimit ?? _retryLimit, onFailure: ((exception, retryIteration, maxRetryCount) =>
             {
-                _logger?.LogError(exception, $"Dapper retry #: {retryIteration + 1}");
+                _logger?.LogWarning(exception, $"Dapper retry #: {retryIteration + 1}");
             }));
 
             return result;
