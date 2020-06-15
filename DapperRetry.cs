@@ -29,47 +29,89 @@ namespace Aionys.Dapper
         }
 
         #region QueryAsync<T>
-        public async Task<IEnumerable<T>> QueryAsync<T>(string connectionString, string sql, object parameters = null, int? retryLimit = null)
+        public async Task<IEnumerable<T>> QueryAsync<T>(
+            string connectionString,
+            string sql,
+            object parameters = null,
+            int? retryLimit = null,
+            IDbTransaction? transaction = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return await QueryAsync<T>(db, sql, parameters, retryLimit);
+                return await QueryAsync<T>(db, sql, parameters, retryLimit, transaction, commandTimeout, commandType);
             }
         }
 
-        public async Task<IEnumerable<T>> QueryAsync<T>(IDbConnection db, string sql, object parameters = null, int? retryLimit = null)
+        public async Task<IEnumerable<T>> QueryAsync<T>(
+            IDbConnection db,
+            string sql,
+            object parameters = null,
+            int? retryLimit = null,
+            IDbTransaction? transaction = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
-            return await RetryActionAsync(db.QueryAsync<T>(sql, parameters), retryLimit);
+            return await RetryActionAsync(db.QueryAsync<T>(sql, parameters, transaction, commandTimeout, commandType), retryLimit);
         }
         #endregion
 
         #region QueryFirstOrDefaultAsync<T>
-        public async Task<T> QueryFirstOrDefaultAsync<T>(string connectionString, string sql, object parameters = null, int? retryLimit = null)
+        public async Task<T> QueryFirstOrDefaultAsync<T>(
+            string connectionString,
+            string sql,
+            object parameters = null,
+            int? retryLimit = null,
+            IDbTransaction? transaction = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return await QueryFirstOrDefaultAsync<T>(db, sql, parameters, retryLimit);
+                return await QueryFirstOrDefaultAsync<T>(db, sql, parameters, retryLimit, transaction, commandTimeout, commandType);
             }
         }
 
-        public async Task<T> QueryFirstOrDefaultAsync<T>(IDbConnection db, string sql, object parameters = null, int? retryLimit = null)
+        public async Task<T> QueryFirstOrDefaultAsync<T>(
+            IDbConnection db,
+            string sql,
+            object parameters = null,
+            int? retryLimit = null,
+            IDbTransaction? transaction = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
-            return await RetryActionAsync(db.QueryFirstOrDefaultAsync<T>(sql, parameters), retryLimit);
+            return await RetryActionAsync(db.QueryFirstOrDefaultAsync<T>(sql, parameters, transaction, commandTimeout, commandType), retryLimit);
         }
         #endregion
 
         #region ExecuteAsync
-        public async Task<int> ExecuteAsync(string connectionString, string sql, object parameters = null, int? retryLimit = null)
+        public async Task<int> ExecuteAsync(
+            string connectionString,
+            string sql,
+            object parameters = null,
+            int? retryLimit = null,
+            IDbTransaction? transaction = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
             using (IDbConnection db = new SqlConnection(connectionString))
             {
-                return await ExecuteAsync(db, sql, parameters, retryLimit);
+                return await ExecuteAsync(db, sql, parameters, retryLimit, transaction, commandTimeout, commandType);
             }
         }
 
-        public async Task<int> ExecuteAsync(IDbConnection db, string sql, object parameters = null, int? retryLimit = null)
+        public async Task<int> ExecuteAsync(
+            IDbConnection db,
+            string sql,
+            object parameters = null,
+            int? retryLimit = null,
+            IDbTransaction? transaction = null,
+            int? commandTimeout = null,
+            CommandType? commandType = null)
         {
-            return await RetryActionAsync(db.ExecuteAsync(sql, parameters), retryLimit);
+            return await RetryActionAsync(db.ExecuteAsync(sql, parameters, transaction, commandTimeout, commandType), retryLimit);
         }
         #endregion
 
