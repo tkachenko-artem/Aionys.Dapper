@@ -13,7 +13,7 @@ namespace Aionys.Dapper
     {
         private const int DefaultRetryLimit = 5;
 
-        private readonly TimeSpan _retryEvery = TimeSpan.FromSeconds(5);
+        private readonly TimeSpan _retryEvery = TimeSpan.FromSeconds(25);
         private readonly ILogger _logger;
         private readonly int _retryLimit;
 
