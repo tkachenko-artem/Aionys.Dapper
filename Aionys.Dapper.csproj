@@ -13,7 +13,7 @@
     <PackageReference Include="AnyRetry" Version="1.0.21" />
     <PackageReference Include="Dapper" Version="2.0.35" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.5" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.1" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
   </ItemGroup>
 
 </Project>
